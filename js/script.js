@@ -54,13 +54,15 @@ buttons.addEventListener('click', getInputHash)
 
 var renderLocalCity=function(apiResponse){
 var object = apiResponse
-var city = apiResponse.results[2].postcode_localities[0]
+console.log(apiResponse)
+var city = apiResponse.results[5].formatted_address
 textInput.value=city
 
 
 }
 
 var localCity = function(){
+	navigator.geolocation.getCurrentPosition(getLocalCoordinates, geoError);
 	var currentHash = location.hash.substr(1)
 	var hashParts = currentHash.split(',')
 	
@@ -153,7 +155,7 @@ var getLocalCoordinates = function(geoPos){
 	
 	location.hash='#' + position.coords.latitude + ',' + position.coords.longitude + ',' + 'current'
 	hashhere=location.hash
-	localCity()
+	
 }
 
 var geoError = function(error) {
@@ -162,8 +164,8 @@ var geoError = function(error) {
 }
 
 textInput.addEventListener('keydown', cityChange)
-navigator.geolocation.getCurrentPosition(getLocalCoordinates, geoError);
 
+localCity()
 controller()
 window.addEventListener('hashchange',controller)
 
