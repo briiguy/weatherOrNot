@@ -1,0 +1,122 @@
+html { 
+  background: url(http://cdn.bigbangfish.com/beautiful/beautiful-sky/beautiful-sky-10.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body{
+	font-family: arial;
+	font-size: 0px;
+	position:relative;
+}
+#imgdiv{
+	position:absolute;
+	z-index:-1;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+}
+#weatherSummaryBG{
+	border:solid blue 2px;
+	transition: all 0.5s ease;
+	background: goldenrod;
+	border-radius: 5%;
+	height:0px;
+	width:0px;
+	
+}
+#weatherSummary{
+	text-align: center;
+	opacity:1;
+	font-size: 15px;
+	font-style: oblique;
+	
+}
+#container{
+position:absolute;
+background:blue;
+left:50%;
+	top:50%;
+
+}
+#cityBox h1{
+	margin-top: 1.1%;
+
+}
+#cityBox >*{
+	height:50px;
+}
+#cityBox{
+	
+	display:inline-flex;
+	position: absolute;
+	left:8%;
+	top:280px;
+	height:90px;
+	width:1300px;
+	
+	
+}
+#textInput{
+    background-color:rgba(0, 0, 0, 0);
+    color:white;
+   border:none;
+    outline:none;
+    height:30px;
+    transition: all 0.5s ease;
+    height:50px;
+    font-size:40px;
+}
+#textInput:focus {
+	color:darkslateblue;
+    
+}
+#infoBox{
+	left:30%;
+	top:400px;
+	height:150px;
+	width:300px;
+	
+	position:absolute;
+}
+img{
+	width:100%;
+
+}
+#buttons{
+	
+	height:40px;	
+}
+
+button{
+	margin-left: 100px;
+	margin-top: 14px;
+	
+	width:80px;
+	height:20px;
+}
+h1{
+	color:floralwhite;
+	font-style: italic;
+	font-size: 15px;
+	font-family: arial;
+}
+h2{
+	color:darkslateblue;
+	font-size: 15px;
+	font-style: italic;
+	font-family: arial;
+	
+	opacity:0.7;
+
+}
+#cityBox h4{
+	height:20px;
+	color:floralwhite;
+	font-style: italic;
+	font-size: 18px;
+	font-family: arial;
+}
