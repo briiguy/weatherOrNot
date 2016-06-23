@@ -8,6 +8,29 @@ var GEOKEY='AIzaSyDNURENGhIDhMEzKFowaE7J8bfO2GDpdyw'
 var GEO_URL='https://maps.googleapis.com/maps/api/geocode/'
 
 
+var ForecastRouter = Backbone.Router.extend({
+	routes:{
+		":lat/:lng/current": "showCurrentWeather",
+		":lat/:lng/daily": "showDailyWeather",
+		":lat/:lng/hourly": "showHourlyWeather"
+	},
+
+	showCurrentWeather: function(){
+		var weatherPromise = fetchData(hashToObject().lat,hashToObject().lng)
+		weatherPromise.then(renderCurrentView)
+	},
+
+	showDailyWeather: function(){
+		var weatherPromise = fetchData(hashToObject().lat,hashToObject().lng)
+		weatherPromise.then(renderDailyView)
+	},
+
+	showHourlyWeather: function(){
+		var weatherPromise = fetchData(hashToObject().lat,hashToObject().lng)
+		weatherPromise.then(renderHourlyView)
+	}
+})
+
 
 
 var containerNode=document.querySelector('#container')
@@ -54,13 +77,15 @@ buttons.addEventListener('click', getInputHash)
 
 var renderLocalCity=function(apiResponse){
 var object = apiResponse
-var city = apiResponse.results[2].postcode_localities[0]
+console.log(apiResponse)
+var city = apiResponse.results[5].formatted_address
 textInput.value=city
 
 
 }
 
 var localCity = function(){
+	navigator.geolocation.getCurrentPosition(getLocalCoordinates, geoError);
 	var currentHash = location.hash.substr(1)
 	var hashParts = currentHash.split(',')
 	
@@ -73,6 +98,17 @@ localPromise.then(renderLocalCity)
 }
 
 
+
+var Dog = function (){
+this.legs=4
+this.speak = function(){
+	console.log('woof')
+}
+var self = this
+Backbone.Events.on('bacon',self.speak)
+}
+
+var jake = new Dog()
 var controller=function(){
 	
 
@@ -153,7 +189,7 @@ var getLocalCoordinates = function(geoPos){
 	
 	location.hash='#' + position.coords.latitude + ',' + position.coords.longitude + ',' + 'current'
 	hashhere=location.hash
-	localCity()
+	
 }
 
 var geoError = function(error) {
@@ -161,9 +197,12 @@ var geoError = function(error) {
 	console.log(error)
 }
 
-textInput.addEventListener('keydown', cityChange)
-navigator.geolocation.getCurrentPosition(getLocalCoordinates, geoError);
+var rtr = new ForecastRouter()
+Backbone.history.start()
 
+textInput.addEventListener('keydown', cityChange)
+
+localCity()
 controller()
 window.addEventListener('hashchange',controller)
 

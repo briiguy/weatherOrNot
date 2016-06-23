@@ -1,3 +1,11 @@
+div#overlay {
+    width: 100%;
+    height: 100vh;
+    background: #222;
+    opacity: 0.8;
+    margin:0;
+}
+
 html { 
   background: url(http://cdn.bigbangfish.com/beautiful/beautiful-sky/beautiful-sky-10.jpg) no-repeat center center fixed; 
   -webkit-background-size: cover;
