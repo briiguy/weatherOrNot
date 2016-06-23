@@ -8,6 +8,29 @@ var GEOKEY='AIzaSyDNURENGhIDhMEzKFowaE7J8bfO2GDpdyw'
 var GEO_URL='https://maps.googleapis.com/maps/api/geocode/'
 
 
+var ForecastRouter = Backbone.Router.extend({
+	routes:{
+		":lat/:lng/current": "showCurrentWeather",
+		":lat/:lng/daily": "showDailyWeather",
+		":lat/:lng/hourly": "showHourlyWeather"
+	},
+
+	showCurrentWeather: function(){
+		var weatherPromise = fetchData(hashToObject().lat,hashToObject().lng)
+		weatherPromise.then(renderCurrentView)
+	},
+
+	showDailyWeather: function(){
+		var weatherPromise = fetchData(hashToObject().lat,hashToObject().lng)
+		weatherPromise.then(renderDailyView)
+	},
+
+	showHourlyWeather: function(){
+		var weatherPromise = fetchData(hashToObject().lat,hashToObject().lng)
+		weatherPromise.then(renderHourlyView)
+	}
+})
+
 
 
 var containerNode=document.querySelector('#container')
@@ -75,6 +98,17 @@ localPromise.then(renderLocalCity)
 }
 
 
+
+var Dog = function (){
+this.legs=4
+this.speak = function(){
+	console.log('woof')
+}
+var self = this
+Backbone.Events.on('bacon',self.speak)
+}
+
+var jake = new Dog()
 var controller=function(){
 	
 
@@ -162,6 +196,9 @@ var geoError = function(error) {
 
 	console.log(error)
 }
+
+var rtr = new ForecastRouter()
+Backbone.history.start()
 
 textInput.addEventListener('keydown', cityChange)
 
